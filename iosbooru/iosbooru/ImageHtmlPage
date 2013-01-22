@@ -1,0 +1,16 @@
+<html>
+    <head>
+        <style> 
+            * { padding: 0px; margin: 0px; border: none; border-spacing: 0px;} 
+        </style>
+    </head>
+    <body style='margin: 0px; padding: 0px; height=%fpx;'>
+        <table cellpadding=0 style='height: 100%%; width: 100%%;'>
+            <tr>
+                <td style='vertical-align: middle; text-align: center;'>
+                    <img src='%@'/>
+                </td>
+            </tr>
+        </table>
+    </body>
+</html>

@@ -1,0 +1,16 @@
+build
+*.pbxuser
+*.mode1v3
+docs
+.DS_Store
+xcuserdata
+*.svn
+pulse.xml
+ivy.xml
+build.properties
+Version.txt
+build.xml
+.fseventsd
+.TemporaryItems
+mother
+Nowtu-Version.plist
