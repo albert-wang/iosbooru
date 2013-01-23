@@ -33,6 +33,7 @@ static const size_t MARGIN = 1;
     
     [self->placeholder release];
     [self->lruCache release];
+    [self->cameraButton release];
 }
 
 - (size_t) indexFromClickedPoint:(CGPoint)point
@@ -78,6 +79,16 @@ static const size_t MARGIN = 1;
     leftSwipe.direction = UISwipeGestureRecognizerDirectionLeft;
     [self addGestureRecognizer:leftSwipe];
     [leftSwipe release];
+    
+    cameraButton = [[[UIImageView alloc] initWithImage:[UIImage imageNamed:@"Camera"]] autorelease];
+    UITapGestureRecognizer * cameraTapped = [[UITapGestureRecognizer alloc] initWithTarget:controller action:@selector(cameraClicked:)];
+    
+    cameraButton.frame = CGRectMake(0, 0, 40, 40);
+    cameraButton.userInteractionEnabled = YES;
+    
+    [cameraButton addGestureRecognizer:cameraTapped];
+    
+    [self addSubview:cameraButton];
 }
 
 - (void) loadImages:(NSArray *)images
@@ -114,6 +125,8 @@ static const size_t MARGIN = 1;
     {
         [self flip:self->thumbnailDisplays[i] hidden:NO];
     }
+    
+    [self flip:cameraButton hidden:NO];
 }
 
 - (void) hideAll
@@ -127,6 +140,8 @@ static const size_t MARGIN = 1;
         
         self->displayStatus = ANIMATING;
     }
+    
+    [self flip:cameraButton hidden:YES];
 }
 
 - (void) displayWebview:(UIWebView *)target

@@ -22,34 +22,40 @@
     if (self)
     {
         self->parentView = [parent retain];
+        self->path = [path retain];
         
-        UIWebView * view = [[[UIWebView alloc] initWithFrame:CGRectMake(0, 0, parent.frame.size.width, parent.frame.size.height)] autorelease];
-        view.backgroundColor = [UIColor blackColor];
-        view.delegate = self;
-        
-        NSString * imageFormat = [NSString stringWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"ImageHtmlPage" ofType:nil] encoding:NSUTF8StringEncoding error:nil];
-        NSString * fullData = [NSString stringWithFormat:imageFormat, parent.frame.size.height, [NSURL fileURLWithPath:path]];
-        
-        [view loadHTMLString:fullData baseURL:nil];
-        view.scalesPageToFit = YES;
-        view.opaque = NO;
-        view.hidden = true;
-        
-        //Add in a back button.
-        backButton = [[[UIImageView alloc] initWithImage:[UIImage imageNamed:@"Left"]] autorelease];
-        backButton.frame = CGRectMake(0, view.frame.size.height - 40, 40, 40);
-        backButton.userInteractionEnabled = YES;
-        [backButton retain];
-        
-        UITapGestureRecognizer * tapRecog = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(backTapped:)];
-        [backButton addGestureRecognizer:tapRecog];
-        [tapRecog release];
-        
-        [view addSubview:backButton];
-        [parent addSubview:view];
-        self.view = view;
+        [self loadView];
     }
     return self;
+}
+
+- (void) loadView
+{
+    UIWebView * view = [[[UIWebView alloc] initWithFrame:CGRectMake(0, 0, parentView.frame.size.width, parentView.frame.size.height)] autorelease];
+    view.backgroundColor = [UIColor blackColor];
+    view.delegate = self;
+    
+    NSString * imageFormat = [NSString stringWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"ImageHtmlPage" ofType:nil] encoding:NSUTF8StringEncoding error:nil];
+    NSString * fullData = [NSString stringWithFormat:imageFormat, parentView.frame.size.height, [NSURL fileURLWithPath:path]];
+    
+    [view loadHTMLString:fullData baseURL:nil];
+    view.scalesPageToFit = YES;
+    view.opaque = NO;
+    view.hidden = true;
+    
+    //Add in a back button.
+    backButton = [[[UIImageView alloc] initWithImage:[UIImage imageNamed:@"Left"]] autorelease];
+    backButton.frame = CGRectMake(0, view.frame.size.height - 40, 40, 40);
+    backButton.userInteractionEnabled = YES;
+    [backButton retain];
+    
+    UITapGestureRecognizer * tapRecog = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(backTapped:)];
+    [backButton addGestureRecognizer:tapRecog];
+    [tapRecog release];
+    
+    [view addSubview:backButton];
+    [parentView addSubview:view];
+    self.view = view;
 }
 
 - (void) dealloc
@@ -57,6 +63,7 @@
     [super dealloc];
     [self->parentView release];
     [self->backButton release];
+    [self->path release];
 }
 
 - (void) webViewDidFinishLoad:(UIWebView *)webView
@@ -72,6 +79,8 @@
         [(UIWebView *)self.view setDelegate:nil];
         
         [self.view removeFromSuperview];
+        [self removeFromParentViewController];
+        
         [(ImageboardView *)parentView reappearImages];
     }
 }

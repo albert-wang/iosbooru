@@ -31,6 +31,11 @@
 		182589BF16A9B44100ACC780 /* Right.png in Resources */ = {isa = PBXBuildFile; fileRef = 182589BD16A9B44000ACC780 /* Right.png */; };
 		182589C216A9D42C00ACC780 /* FullImageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 182589C116A9D42C00ACC780 /* FullImageViewController.m */; };
 		182589C416ADE5F800ACC780 /* ImageHtmlPage in Resources */ = {isa = PBXBuildFile; fileRef = 182589C316ADE5F800ACC780 /* ImageHtmlPage */; };
+		182589CA16AF1BE900ACC780 /* Camera.png in Resources */ = {isa = PBXBuildFile; fileRef = 182589C916AF1BE900ACC780 /* Camera.png */; };
+		182589CE16AF2B5D00ACC780 /* NTVMultipartRequest.mm in Sources */ = {isa = PBXBuildFile; fileRef = 182589CD16AF2B5D00ACC780 /* NTVMultipartRequest.mm */; };
+		182589D116AF2F9F00ACC780 /* NTVStreamMux.mm in Sources */ = {isa = PBXBuildFile; fileRef = 182589D016AF2F9F00ACC780 /* NTVStreamMux.mm */; };
+		182589D216AF30EA00ACC780 /* NTVMultipartRequest.mm in Sources */ = {isa = PBXBuildFile; fileRef = 182589CD16AF2B5D00ACC780 /* NTVMultipartRequest.mm */; };
+		182589D316AF30EE00ACC780 /* NTVStreamMux.mm in Sources */ = {isa = PBXBuildFile; fileRef = 182589D016AF2F9F00ACC780 /* NTVStreamMux.mm */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -78,6 +83,11 @@
 		182589C016A9D42C00ACC780 /* FullImageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FullImageViewController.h; sourceTree = "<group>"; };
 		182589C116A9D42C00ACC780 /* FullImageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FullImageViewController.m; sourceTree = "<group>"; };
 		182589C316ADE5F800ACC780 /* ImageHtmlPage */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = ImageHtmlPage; sourceTree = "<group>"; };
+		182589C916AF1BE900ACC780 /* Camera.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Camera.png; sourceTree = "<group>"; };
+		182589CC16AF2B5D00ACC780 /* NTVMultipartRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NTVMultipartRequest.h; sourceTree = "<group>"; };
+		182589CD16AF2B5D00ACC780 /* NTVMultipartRequest.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = NTVMultipartRequest.mm; sourceTree = "<group>"; };
+		182589CF16AF2F9F00ACC780 /* NTVStreamMux.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NTVStreamMux.h; sourceTree = "<group>"; };
+		182589D016AF2F9F00ACC780 /* NTVStreamMux.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = NTVStreamMux.mm; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -155,6 +165,7 @@
 				1825897216A5FA1F00ACC780 /* InfoPlist.strings */,
 				182589BC16A9B44000ACC780 /* Left.png */,
 				182589BD16A9B44000ACC780 /* Right.png */,
+				182589C916AF1BE900ACC780 /* Camera.png */,
 				1825897516A5FA1F00ACC780 /* main.mm */,
 				1825897716A5FA1F00ACC780 /* iosbooru-Prefix.pch */,
 				1825897B16A5FA1F00ACC780 /* Default.png */,
@@ -201,8 +212,12 @@
 		182589B516A8795100ACC780 /* Utilities */ = {
 			isa = PBXGroup;
 			children = (
+				182589CC16AF2B5D00ACC780 /* NTVMultipartRequest.h */,
+				182589CD16AF2B5D00ACC780 /* NTVMultipartRequest.mm */,
 				182589B616A8798700ACC780 /* BlockNetworkingDelegate.h */,
 				182589B716A8798700ACC780 /* BlockNetworkingDelegate.m */,
+				182589CF16AF2F9F00ACC780 /* NTVStreamMux.h */,
+				182589D016AF2F9F00ACC780 /* NTVStreamMux.mm */,
 				182589B916A8900100ACC780 /* DiskImageLRU.h */,
 				182589BA16A8900100ACC780 /* DiskImageLRU.m */,
 			);
@@ -288,6 +303,7 @@
 				182589BE16A9B44100ACC780 /* Left.png in Resources */,
 				182589BF16A9B44100ACC780 /* Right.png in Resources */,
 				182589C416ADE5F800ACC780 /* ImageHtmlPage in Resources */,
+				182589CA16AF1BE900ACC780 /* Camera.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -327,6 +343,8 @@
 				182589AF16A85F3600ACC780 /* ImageboardView.m in Sources */,
 				182589B216A8619B00ACC780 /* ImageboardViewController.m in Sources */,
 				182589B816A8798700ACC780 /* BlockNetworkingDelegate.m in Sources */,
+				182589D316AF30EE00ACC780 /* NTVStreamMux.mm in Sources */,
+				182589D216AF30EA00ACC780 /* NTVMultipartRequest.mm in Sources */,
 				182589BB16A8900100ACC780 /* DiskImageLRU.m in Sources */,
 				182589C216A9D42C00ACC780 /* FullImageViewController.m in Sources */,
 			);
@@ -337,6 +355,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				1825899516A5FA2000ACC780 /* iosbooruTests.m in Sources */,
+				182589CE16AF2B5D00ACC780 /* NTVMultipartRequest.mm in Sources */,
+				182589D116AF2F9F00ACC780 /* NTVStreamMux.mm in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

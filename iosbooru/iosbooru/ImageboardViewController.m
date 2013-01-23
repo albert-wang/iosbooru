@@ -9,6 +9,7 @@
 #import "ImageboardViewController.h"
 #import "ImageboardView.h"
 #import "BlockNetworkingDelegate.h"
+#import "NTVMultipartRequest.h"
 
 @interface ImageboardViewController ()
 
@@ -97,6 +98,131 @@
     [self reloadImages];
 }
 
+- (void) cameraClicked:(UITapGestureRecognizer *)sender
+{
+    if (sender.state == UIGestureRecognizerStateEnded)
+    {
+        //Choose between photo album and camera.
+        UIActionSheet * albumCameraSheet = [[UIActionSheet alloc] initWithTitle:@"Photo Source" delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:@"Photos", @"Camera", nil];
+        [albumCameraSheet showInView:self.view];
+    }
+}
+
+//Handle the action sheet actions to show a camera or photo album
+- (void) actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    if (buttonIndex == actionSheet.cancelButtonIndex)
+    {
+        return;
+    }
+    
+    //Assumes english =/
+    NSString * title = [actionSheet buttonTitleAtIndex:buttonIndex];
+    
+    UIImagePickerController * picker = [[UIImagePickerController alloc] init];
+    picker.delegate = self;
+    picker.allowsEditing = NO;
+    
+    if ([title isEqualToString:@"Photos"])
+    {
+        picker.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
+        
+        if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)
+        {
+            UIPopoverController * popover = [[UIPopoverController alloc] initWithContentViewController:picker];
+            [popover presentPopoverFromRect:CGRectMake(0, 0, 40, 40) inView:self.view permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
+            
+            possiblePopover = popover;
+        }
+        else
+        {
+            [self presentViewController:picker animated:YES completion:nil];
+        }
+    }
+    else
+    {
+        picker.sourceType = UIImagePickerControllerSourceTypeCamera;
+        [self presentViewController:picker animated:YES completion:nil];
+    }
+}
+
+//Handle image picking
+- (void) imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info
+{
+    UIImage * img = [info objectForKey:UIImagePickerControllerOriginalImage];
+    
+    [picker dismissViewControllerAnimated:YES completion:nil];
+    [possiblePopover dismissPopoverAnimated:YES];
+    [possiblePopover release];
+    possiblePopover = nil;
+    
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        //Write the file to /uploads/<timestamp>
+        NSString * documentPath = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, true) objectAtIndex:0];
+        NSFileManager * manager = [NSFileManager defaultManager];
+        
+        NSError * err = nil;
+        
+        NSString * uploadPath = [[documentPath stringByAppendingPathComponent:@"uploads"] retain];
+        [manager createDirectoryAtPath:uploadPath withIntermediateDirectories:FALSE attributes:nil error:&err];
+        
+        NSString * uniquing = [NSString stringWithFormat:@"upload-%d-%f", rand(), [[NSDate date] timeIntervalSince1970]];
+        NSString * target = [uploadPath stringByAppendingPathComponent:uniquing];
+        [UIImageJPEGRepresentation(img, 1.0) writeToFile:target atomically:YES];
+        
+        dispatch_async(dispatch_get_main_queue(), ^{
+            MultipartRequest * req = [[[MultipartRequest alloc] initWithURL:[NSURL URLWithString:@"http://img.uncod.in/upload/curl"]] autorelease];
+            
+            [req addPart: [@"iosbooru@ironclad.mobi" dataUsingEncoding:NSUTF8StringEncoding] withName:@"email" andContentType:@"text/plain"];
+            [req addPartFromPath:target withName:@"file" andContentType:@"image/jpeg"];
+            [req prepareToSend];
+            
+            NSLog(@"Sending request...");
+            
+            [self displayNetworkBusy];
+            [NSURLConnection connectionWithRequest:req delegate:self];
+        });
+    });
+}
+
+//Handle error and finished.
+- (void) connection:(NSURLConnection *)connection didFailWithError:(NSError *)error
+{
+    NSLog(@"Upload failed with error %@", error);
+    [self networkFinished];
+}
+
+- (void) connectionDidFinishLoading:(NSURLConnection *)connection
+{
+    [self networkFinished];
+    
+    //Let thumbnail generation happen
+    [self performSelector:@selector(reloadImages) withObject:self afterDelay:1.0];
+}
+
+- (void) displayNetworkBusy
+{
+    if (networkRequestsOutstanding == 0)
+    {
+        [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
+    }
+    
+    networkRequestsOutstanding++;
+}
+
+- (void) networkFinished
+{
+    if (networkRequestsOutstanding > 0)
+    {
+        networkRequestsOutstanding--;
+    }
+    
+    if (networkRequestsOutstanding == 0)
+    {
+        [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
+    }
+}
+
 - (void) frameClicked:(UITapGestureRecognizer *)sender
 {
     ImageboardView * view = (ImageboardView *)self.view;
@@ -119,6 +245,8 @@
                 
                 [fullImageController release];
                 fullImageController = [nextController retain];
+                
+                [self addChildViewController:fullImageController];
             }];
         }
     }

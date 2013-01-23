@@ -12,6 +12,7 @@
 {
     UIView * parentView;
     UIView * backButton;
+    NSString * path;
 }
 
 + (FullImageViewController *) createWithParentView:(UIView *)view path:(NSString *)path;

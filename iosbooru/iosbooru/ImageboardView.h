@@ -24,6 +24,7 @@ enum ImageboardDisplayStatus
     
     //The entire scene is just 12 image views.
     UIImageView * thumbnailDisplays[12];
+    UIImageView * cameraButton;
     UIViewController *  delegate;
 }
 
