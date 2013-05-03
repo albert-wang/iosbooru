@@ -12,10 +12,14 @@
 {
     UIView * parentView;
     UIView * backButton;
+    UIView * tagButton;
+    
     NSString * path;
+    NTVImage * image;
+    NTVDatastore * datastore;
 }
 
-+ (FullImageViewController *) createWithParentView:(UIView *)view path:(NSString *)path;
-- (id) initWithParentView:(UIView *)view path:(NSString *)path;
++ (FullImageViewController *) createWithParentView:(UIView *)view path:(NSString *)path image:(NTVImage *)image datastore:(NTVDatastore *)ds;
+- (id) initWithParentView:(UIView *)view path:(NSString *)path image:(NTVImage *)image datastore:(NTVDatastore *)ds;
 
 @end

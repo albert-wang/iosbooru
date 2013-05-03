@@ -239,14 +239,19 @@
             assert(blowup);
             
             [view.lruCache loadImage:blowup finished:^(NSError *err, NSString *path) {
+                if (err)
+                {
+                    //:(
+                    [view reappearImages];
+                    return;
+                }
+                
                 NSLog(@"Finished downloading, displaying: %@", path);
                 
-                FullImageViewController * nextController = [FullImageViewController createWithParentView:view path:path];
+                FullImageViewController * nextController = [FullImageViewController createWithParentView:view path:path image:blowup datastore:datastore];
                 
                 [fullImageController release];
                 fullImageController = [nextController retain];
-                
-                [self addChildViewController:fullImageController];
             }];
         }
     }
@@ -254,7 +259,8 @@
 
 - (void) swipeLeft:(UISwipeGestureRecognizer *)recog
 {
-    if (recog.state == UIGestureRecognizerStateEnded)
+    ImageboardView * view = (ImageboardView *)self.view;
+    if (recog.state == UIGestureRecognizerStateEnded && view.displayStatus == DISPLAY_BOARD)
     {
         [self next: 1];
     }
@@ -262,7 +268,8 @@
 
 - (void) swipeRight:(UISwipeGestureRecognizer *)recog
 {
-    if (recog.state == UIGestureRecognizerStateEnded)
+    ImageboardView * view = (ImageboardView *)self.view;
+    if (recog.state == UIGestureRecognizerStateEnded && view.displayStatus == DISPLAY_BOARD)
     {
         [self prev: 1];
     }

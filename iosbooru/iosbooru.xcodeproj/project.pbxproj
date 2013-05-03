@@ -36,6 +36,9 @@
 		182589D116AF2F9F00ACC780 /* NTVStreamMux.mm in Sources */ = {isa = PBXBuildFile; fileRef = 182589D016AF2F9F00ACC780 /* NTVStreamMux.mm */; };
 		182589D216AF30EA00ACC780 /* NTVMultipartRequest.mm in Sources */ = {isa = PBXBuildFile; fileRef = 182589CD16AF2B5D00ACC780 /* NTVMultipartRequest.mm */; };
 		182589D316AF30EE00ACC780 /* NTVStreamMux.mm in Sources */ = {isa = PBXBuildFile; fileRef = 182589D016AF2F9F00ACC780 /* NTVStreamMux.mm */; };
+		18E7BF9D16B196090045E5C7 /* TagView.m in Sources */ = {isa = PBXBuildFile; fileRef = 18E7BF9C16B196090045E5C7 /* TagView.m */; };
+		18E7BFA016B1A46F0045E5C7 /* Tag.png in Resources */ = {isa = PBXBuildFile; fileRef = 18E7BF9F16B1A46F0045E5C7 /* Tag.png */; };
+		18E7BFA316B1B7A70045E5C7 /* TagViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18E7BFA216B1B7A70045E5C7 /* TagViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -88,6 +91,11 @@
 		182589CD16AF2B5D00ACC780 /* NTVMultipartRequest.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = NTVMultipartRequest.mm; sourceTree = "<group>"; };
 		182589CF16AF2F9F00ACC780 /* NTVStreamMux.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NTVStreamMux.h; sourceTree = "<group>"; };
 		182589D016AF2F9F00ACC780 /* NTVStreamMux.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = NTVStreamMux.mm; sourceTree = "<group>"; };
+		18E7BF9B16B196090045E5C7 /* TagView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TagView.h; sourceTree = "<group>"; };
+		18E7BF9C16B196090045E5C7 /* TagView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TagView.m; sourceTree = "<group>"; };
+		18E7BF9F16B1A46F0045E5C7 /* Tag.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Tag.png; sourceTree = "<group>"; };
+		18E7BFA116B1B7A70045E5C7 /* TagViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TagViewController.h; sourceTree = "<group>"; };
+		18E7BFA216B1B7A70045E5C7 /* TagViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TagViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -165,6 +173,7 @@
 				1825897216A5FA1F00ACC780 /* InfoPlist.strings */,
 				182589BC16A9B44000ACC780 /* Left.png */,
 				182589BD16A9B44000ACC780 /* Right.png */,
+				18E7BF9F16B1A46F0045E5C7 /* Tag.png */,
 				182589C916AF1BE900ACC780 /* Camera.png */,
 				1825897516A5FA1F00ACC780 /* main.mm */,
 				1825897716A5FA1F00ACC780 /* iosbooru-Prefix.pch */,
@@ -205,6 +214,10 @@
 				182589B116A8619B00ACC780 /* ImageboardViewController.m */,
 				182589C016A9D42C00ACC780 /* FullImageViewController.h */,
 				182589C116A9D42C00ACC780 /* FullImageViewController.m */,
+				18E7BF9B16B196090045E5C7 /* TagView.h */,
+				18E7BF9C16B196090045E5C7 /* TagView.m */,
+				18E7BFA116B1B7A70045E5C7 /* TagViewController.h */,
+				18E7BFA216B1B7A70045E5C7 /* TagViewController.m */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -304,6 +317,7 @@
 				182589BF16A9B44100ACC780 /* Right.png in Resources */,
 				182589C416ADE5F800ACC780 /* ImageHtmlPage in Resources */,
 				182589CA16AF1BE900ACC780 /* Camera.png in Resources */,
+				18E7BFA016B1A46F0045E5C7 /* Tag.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -347,6 +361,8 @@
 				182589D216AF30EA00ACC780 /* NTVMultipartRequest.mm in Sources */,
 				182589BB16A8900100ACC780 /* DiskImageLRU.m in Sources */,
 				182589C216A9D42C00ACC780 /* FullImageViewController.m in Sources */,
+				18E7BF9D16B196090045E5C7 /* TagView.m in Sources */,
+				18E7BFA316B1B7A70045E5C7 /* TagViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

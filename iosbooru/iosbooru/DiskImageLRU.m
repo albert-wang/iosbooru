@@ -157,7 +157,15 @@
     }
     
 
-    [self downloadFileAt:url as:guidString withCallback:cb];
+    [self downloadFileAt:url as:guidString withCallback:^(NSError *e, NSString * path)
+     {
+         if (e)
+         {
+             NSLog(@"Image not found, error: %@", e);
+         }
+         
+        cb(e, path);
+     }];
 }
 
 - (void) loadThumbnail:(NTVImage *)image finished:(CallbackType)cb

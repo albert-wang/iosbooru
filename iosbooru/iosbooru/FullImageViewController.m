@@ -11,18 +11,20 @@
 
 @implementation FullImageViewController
 
-+ (FullImageViewController *) createWithParentView:(UIView *)view path:(NSString *)path
++ (FullImageViewController *) createWithParentView:(UIView *)view path:(NSString *)path image:(NTVImage *)image datastore:(NTVDatastore *)ds
 {
-    return [[[FullImageViewController alloc] initWithParentView:view path:path] autorelease];
+    return [[[FullImageViewController alloc] initWithParentView:view path:path image:image datastore:ds] autorelease];
 }
 
-- (id) initWithParentView:(UIView *)parent path:(NSString *)path
+- (id) initWithParentView:(UIView *)parent path:(NSString *)inputPath image:(NTVImage *)img datastore:(NTVDatastore *)ds
 {
     self = [super initWithNibName:nil bundle:nil];
     if (self)
     {
         self->parentView = [parent retain];
-        self->path = [path retain];
+        self->path = [inputPath retain];
+        self->image = [img retain];
+        self->datatore = [ds retain];
         
         [self loadView];
     }
@@ -52,8 +54,19 @@
     UITapGestureRecognizer * tapRecog = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(backTapped:)];
     [backButton addGestureRecognizer:tapRecog];
     [tapRecog release];
-    
     [view addSubview:backButton];
+    
+    //Tag button.
+    tagButton = [[[UIImageView alloc] initWithImage:[UIImage imageNamed:@"Tag"]] autorelease];
+    tagButton.frame = CGRectMake(view.frame.size.width - 40, view.frame.size.height - 40, 40, 40);
+    tagButton.userInteractionEnabled = YES;
+    [tagButton retain];
+    
+    UITapGestureRecognizer * tagRecog = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tagTapped:)];
+    [tagButton addGestureRecognizer:tagRecog];
+    [tagRecog release];
+    [view addSubview:tagButton];
+    
     [parentView addSubview:view];
     self.view = view;
 }
@@ -63,7 +76,10 @@
     [super dealloc];
     [self->parentView release];
     [self->backButton release];
+    [self->tagButton release];
     [self->path release];
+    [self->image release];
+    [self->datastore release];
 }
 
 - (void) webViewDidFinishLoad:(UIWebView *)webView
@@ -78,10 +94,16 @@
         backButton.userInteractionEnabled = NO;
         [(UIWebView *)self.view setDelegate:nil];
         
-        [self.view removeFromSuperview];
-        [self removeFromParentViewController];
-        
         [(ImageboardView *)parentView reappearImages];
+        [self.view removeFromSuperview];
+    }
+}
+
+- (void) tagTapped:(UITapGestureRecognizer *)sender
+{
+    if (sender.state == UIGestureRecognizerStateEnded)
+    {
+        TagViewController * controller = [[[TagViewController alloc] initWithImageReference:image datastore:datastore] autorelease];
     }
 }
 
