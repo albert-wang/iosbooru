@@ -24,7 +24,7 @@
         self->parentView = [parent retain];
         self->path = [inputPath retain];
         self->image = [img retain];
-        self->datatore = [ds retain];
+        self->datastore = [ds retain];
         
         [self loadView];
     }
@@ -103,7 +103,7 @@
 {
     if (sender.state == UIGestureRecognizerStateEnded)
     {
-        TagViewController * controller = [[[TagViewController alloc] initWithImageReference:image datastore:datastore] autorelease];
+        //TagViewController * controller = [[[TagViewController alloc] initWithImageReference:image datastore:datastore] autorelease];
     }
 }
 

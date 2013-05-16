@@ -474,6 +474,7 @@
 				GCC_INPUT_FILETYPE = sourcecode.cpp.objcpp;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "iosbooru/iosbooru-Prefix.pch";
+				GCC_PREPROCESSOR_DEFINITIONS = "BOOST_NO_CXX11_RVALUE_REFERENCES=1";
 				GCC_VERSION = "";
 				HEADER_SEARCH_PATHS = /opt/local/include;
 				INFOPLIST_FILE = "iosbooru/iosbooru-Info.plist";
@@ -498,6 +499,7 @@
 				GCC_INPUT_FILETYPE = sourcecode.cpp.objcpp;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "iosbooru/iosbooru-Prefix.pch";
+				GCC_PREPROCESSOR_DEFINITIONS = "BOOST_NO_CXX11_RVALUE_REFERENCES=1";
 				GCC_VERSION = "";
 				HEADER_SEARCH_PATHS = /opt/local/include;
 				INFOPLIST_FILE = "iosbooru/iosbooru-Info.plist";
